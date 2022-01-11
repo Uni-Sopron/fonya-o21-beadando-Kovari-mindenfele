@@ -1,0 +1,11 @@
+
+# Tamagotchi simulator
+
+My dear pet, "Gotchi" is a rather simple-minded creature.
+
+It needs to be fed, wishes to play and hear your voice from time-to-time.
+If you neglect to comply with these timely, it tends to feel unhappy.
+A deeply unhappy Tamagotchi escapes, which means you need to restart the game.
+
+Luckily Gotchi likes to sleep long and may even have a nap in daytime.
+

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.</declaration>
+	<template>
+		<name x="5" y="5">Template</name>
+		<declaration>// Place local declarations here.
+clock t;
+int h=5;
+
+broadcast chan a;
+broadcast chan b;
+broadcast chan c;
+broadcast chan e;</declaration>
+		<location id="id0" x="-144" y="-102">
+			<name x="-154" y="-136">I</name>
+			<label kind="comments" x="-161" y="-170">Newborn</label>
+		</location>
+		<location id="id1" x="-8" y="-170">
+			<name x="-18" y="-204">II</name>
+			<label kind="comments" x="-144" y="-238">Tamagotchi is hungry and naughty</label>
+		</location>
+		<location id="id2" x="340" y="-323">
+			<name x="330" y="-357">III</name>
+			<label kind="comments" x="331" y="-297">Night</label>
+		</location>
+		<location id="id3" x="297" y="-144">
+			<name x="287" y="-178">V</name>
+		</location>
+		<location id="id4" x="552" y="-170">
+			<name x="542" y="-204">VII</name>
+		</location>
+		<location id="id5" x="918" y="-161">
+			<name x="908" y="-195">VIII</name>
+		</location>
+		<location id="id6" x="1266" y="118">
+			<name x="1232" y="93">XIV</name>
+			<label kind="comments" x="1130" y="76">Tamagotchi is very hungry, naughty and bored</label>
+		</location>
+		<location id="id7" x="348" y="102">
+			<name x="338" y="68">IX</name>
+		</location>
+		<location id="id8" x="552" y="-323">
+			<name x="542" y="-357">IV</name>
+			<label kind="comments" x="526" y="-314">Morning</label>
+		</location>
+		<location id="id9" x="552" y="119">
+			<name x="542" y="85">XI</name>
+			<label kind="comments" x="433" y="59">Tamagotchi is hungry, naughty and bored</label>
+		</location>
+		<location id="id10" x="918" y="8">
+			<name x="908" y="-26">XII</name>
+			<label kind="comments" x="926" y="17">Tamagotchi is bored</label>
+		</location>
+		<location id="id11" x="926" y="119">
+			<name x="916" y="85">XIII</name>
+		</location>
+		<location id="id12" x="926" y="221">
+			<name x="916" y="187">XV</name>
+			<label kind="comments" x="943" y="238">Tamagotchi escapes</label>
+		</location>
+		<location id="id13" x="493" y="-170">
+			<name x="483" y="-204">VI</name>
+		</location>
+		<location id="id14" x="195" y="-255">
+			<committed/>
+		</location>
+		<location id="id15" x="782" y="-68">
+			<committed/>
+		</location>
+		<location id="id16" x="688" y="0">
+			<committed/>
+		</location>
+		<location id="id17" x="552" y="-25">
+			<committed/>
+		</location>
+		<location id="id18" x="739" y="51">
+			<committed/>
+		</location>
+		<location id="id19" x="1266" y="-42">
+			<committed/>
+		</location>
+		<location id="id20" x="1436" y="-102">
+			<committed/>
+		</location>
+		<location id="id21" x="1436" y="-204">
+			<committed/>
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="841" y="136">c!</label>
+			<label kind="assignment" x="841" y="153">h=h-1</label>
+			<nail x="782" y="153"/>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id7"/>
+			<label kind="guard" x="399" y="144">t&gt;2000</label>
+			<nail x="450" y="144"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id2"/>
+			<label kind="guard" x="348" y="8">t&gt;1200</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="382" y="51">e!</label>
+			<label kind="assignment" x="382" y="68">t=t+100,
+h=h-1</label>
+			<nail x="450" y="76"/>
+		</transition>
+		<transition>
+			<source ref="id19"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="358" y="-403">b!</label>
+			<nail x="1266" y="-382"/>
+			<nail x="340" y="-391"/>
+			<nail x="340" y="-340"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id9"/>
+			<label kind="assignment" x="612" y="314">h=2,
+t=t+100</label>
+			<nail x="1266" y="314"/>
+			<nail x="552" y="306"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id4"/>
+			<label kind="assignment" x="552" y="-289">h=h-2</label>
+		</transition>
+		<transition>
+			<source ref="id21"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="358" y="-467">c!</label>
+			<nail x="1436" y="-450"/>
+			<nail x="340" y="-450"/>
+		</transition>
+		<transition>
+			<source ref="id20"/>
+			<target ref="id21"/>
+			<label kind="synchronisation" x="1440" y="-170">b!</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id20"/>
+			<label kind="synchronisation" x="1343" y="119">a!</label>
+			<label kind="assignment" x="1343" y="144">h=h+2</label>
+			<nail x="1435" y="110"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id19"/>
+			<label kind="synchronisation" x="1274" y="17">a!</label>
+			<label kind="assignment" x="1266" y="34">h=h+1</label>
+		</transition>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id10"/>
+			<label kind="synchronisation" x="790" y="17">b!</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id18"/>
+			<label kind="synchronisation" x="680" y="25">a!</label>
+			<label kind="assignment" x="680" y="42">h=h+1</label>
+		</transition>
+		<transition>
+			<source ref="id17"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="560" y="-114">b!</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id17"/>
+			<label kind="synchronisation" x="560" y="21">a!</label>
+		</transition>
+		<transition>
+			<source ref="id15"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="824" y="-127">c!</label>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id15"/>
+			<label kind="synchronisation" x="714" y="-51">b!</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id16"/>
+			<label kind="synchronisation" x="603" y="-17">a!</label>
+			<label kind="assignment" x="603" y="0">h=5</label>
+		</transition>
+		<transition>
+			<source ref="id14"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="229" y="-306">b!</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id14"/>
+			<label kind="synchronisation" x="93" y="-289">a!</label>
+			<label kind="assignment" x="93" y="-272">h=h+1</label>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id12"/>
+			<nail x="935" y="289"/>
+			<nail x="875" y="263"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id10"/>
+			<label kind="synchronisation" x="637" y="-340">a!</label>
+			<label kind="assignment" x="629" y="-323">h=h+1</label>
+			<nail x="765" y="-263"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id12"/>
+			<label kind="guard" x="1113" y="195">h&lt;1</label>
+			<label kind="comments" x="1105" y="170">neglect</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="833" y="51">a!</label>
+			<label kind="assignment" x="833" y="68">h=1</label>
+			<nail x="780" y="72"/>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="1045" y="-144">c!</label>
+			<label kind="assignment" x="1045" y="-102">h=4</label>
+			<nail x="1037" y="8"/>
+			<nail x="1037" y="-263"/>
+			<nail x="365" y="-246"/>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id6"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id1"/>
+			<label kind="assignment" x="42" y="-382">t=50</label>
+			<nail x="918" y="-382"/>
+			<nail x="-8" y="-382"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id9"/>
+			<label kind="assignment" x="442" y="-76">h=h-1</label>
+			<label kind="comments" x="416" y="-93">neglect</label>
+			<nail x="467" y="-34"/>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id4"/>
+			<label kind="guard" x="505" y="-192">t&gt;=2</label>
+			<label kind="synchronisation" x="505" y="-175">e!</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id12"/>
+			<label kind="guard" x="697" y="204">h&lt;1</label>
+			<label kind="comments" x="697" y="178">neglect</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="765" y="85">b!</label>
+			<label kind="assignment" x="765" y="102">h=h-1</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="212" y="-221">a!</label>
+			<label kind="assignment" x="221" y="-204">h=h-1</label>
+			<nail x="195" y="-186"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id8"/>
+			<label kind="guard" x="357" y="-357">t&gt;1700</label>
+			<label kind="synchronisation" x="416" y="-348">e!</label>
+			<label kind="assignment" x="408" y="-323">h=4,
+t=0</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id7"/>
+			<label kind="guard" x="110" y="34">t&gt;2</label>
+			<label kind="assignment" x="110" y="17">h=h-2</label>
+			<label kind="comments" x="109" y="-8">neglect</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="714" y="-212">c!</label>
+			<label kind="assignment" x="714" y="-195">h=h+1</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id13"/>
+			<label kind="assignment" x="416" y="-187">h=h-1</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="212" y="-136">b!</label>
+			<label kind="assignment" x="212" y="-119">h=h-1</label>
+			<nail x="187" y="-136"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-93" y="-110">t&gt;=10</label>
+			<label kind="synchronisation" x="-102" y="-153">e!</label>
+			<label kind="assignment" x="-93" y="-127">h=6</label>
+			<label kind="comments" x="-255" y="-433">a:=feed
+b:=talk to
+c:= play and spoil
+e:= passing time
+t:= time
+h:= happyness</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = Template();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+		<query>
+			<formula>E&lt;&gt;h&gt;7</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt;System.max</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt;Deadlock</formula>
+			<comment></comment>
+		</query>
+	</queries>
+</nta>
