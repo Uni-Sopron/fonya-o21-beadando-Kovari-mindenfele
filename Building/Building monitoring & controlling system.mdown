@@ -1,0 +1,19 @@
+
+# Intelligent building monitoring & controlling system
+
+
+The system consists of the following modules:
+
+- Fire detection
+- Entrance control
+- Motion sensors
+- Engineering (Heating and ventillation control)
+- Power supply
+- Water detector
+- Watering system (for the plants outside)
+
+The "controlling" function is achived by means of remote controls and also by keeping values in the given ranges.
+
+There are cross-effects between the subsystems, which are marked (by green arrows) in each of them,
+but alas I cound not make the link in between them in UPPSAAL.
+

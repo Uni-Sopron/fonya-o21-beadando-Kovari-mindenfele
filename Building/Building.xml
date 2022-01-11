@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.</declaration>
+	<template>
+		<name x="5" y="5">Fire detector</name>
+		<declaration>// Place local declarations here.
+clock c;
+clock cv;
+
+broadcast chan a;
+broadcast chan b;</declaration>
+		<location id="id0" x="-68" y="-119">
+			<name x="-78" y="-153">I</name>
+		</location>
+		<location id="id1" x="187" y="-153">
+			<name x="177" y="-187">II</name>
+			<label kind="invariant" x="204" y="-178">cv &lt;= 4</label>
+			<label kind="comments" x="110" y="-246">Alarm: to operator and security guard</label>
+		</location>
+		<location id="id2" x="280" y="34">
+			<name x="289" y="9">III</name>
+			<label kind="comments" x="153" y="76">Alarm: to operator and fire brigade</label>
+		</location>
+		<location id="id3" x="433" y="-187">
+			<label kind="comments" x="425" y="-229">ventillation on</label>
+		</location>
+		<location id="id4" x="467" y="-93">
+			<label kind="comments" x="493" y="-102">sprinklers on, halon extinguishers in use</label>
+		</location>
+		<location id="id5" x="731" y="-255">
+		</location>
+		<branchpoint id="id6" x="569" y="-17">
+		</branchpoint>
+		<branchpoint id="id7" x="612" y="85">
+		</branchpoint>
+		<branchpoint id="id8" x="603" y="25">
+		</branchpoint>
+		<branchpoint id="id9" x="569" y="-17">
+		</branchpoint>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="323" y="-85">fire?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="612" y="-178">not fire!</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="586" y="-255">not fire!</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id7"/>
+			<label kind="comments" x="637" y="76">safety instructions
+from loudspeakers</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id8"/>
+			<label kind="comments" x="620" y="8">send elevators to ground floor
+stop there, keep doors open</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id6"/>
+			<label kind="comments" x="586" y="-42">opening gates and secured doors</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="340" y="-144">b!</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="382" y="-34">fire?</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="323" y="-195">a!</label>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="68" y="-17">a! &amp;&amp; b!  |  c!</label>
+			<label kind="comments" x="-110" y="-289">c:= rapid heat rise detected</label>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="85" y="-170">a! | b!</label>
+			<label kind="comments" x="-110" y="-340">a:= smoke detected
+b:= CO2 concentration beyond the treshold</label>
+		</transition>
+	</template>
+	<template>
+		<name>Entrance control</name>
+		<location id="id10" x="-501" y="-229">
+			<name x="-511" y="-263">I</name>
+			<label kind="invariant" x="-586" y="-272">450 &lt;= t &amp;&amp; t&lt; 1200</label>
+			<label kind="comments" x="-688" y="-238">Main entrance - Open</label>
+		</location>
+		<location id="id11" x="-238" y="-204">
+			<name x="-248" y="-238">II</name>
+			<label kind="invariant" x="-248" y="-187">1200 &lt;t &amp;&amp; t&lt; 1440</label>
+			<label kind="comments" x="-204" y="-212">Closed</label>
+		</location>
+		<location id="id12" x="-476" y="0">
+			<name x="-486" y="-34">III</name>
+			<label kind="comments" x="-731" y="-17">Corridors, office rooms - Closed</label>
+		</location>
+		<location id="id13" x="-187" y="0">
+			<name x="-197" y="-34">IV</name>
+			<label kind="comments" x="-197" y="59">Open</label>
+		</location>
+		<location id="id14" x="-340" y="-144">
+			<label kind="invariant" x="-350" y="-127">t &lt; 450</label>
+			<label kind="comments" x="-357" y="-93">Closed</label>
+		</location>
+		<location id="id15" x="42" y="-314">
+			<name x="32" y="-348">V</name>
+			<label kind="comments" x="75" y="-322">Fire alarm</label>
+		</location>
+		<init ref="id10"/>
+		<transition color="#00ff00">
+			<source ref="id15"/>
+			<target ref="id13"/>
+		</transition>
+		<transition color="#00ff00">
+			<source ref="id15"/>
+			<target ref="id10"/>
+			<label kind="comments" x="-935" y="-348">t:= time of the day (mins.)</label>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id13"/>
+			<label kind="synchronisation" x="-357" y="76">y!</label>
+			<label kind="comments" x="-935" y="-280">y = entry with handy</label>
+			<nail x="-331" y="76"/>
+		</transition>
+		<transition>
+			<source ref="id12"/>
+			<target ref="id13"/>
+			<label kind="guard" x="-348" y="-25">x!</label>
+			<label kind="comments" x="-935" y="-314">x = entry with card</label>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id11"/>
+		</transition>
+		<transition>
+			<source ref="id14"/>
+			<target ref="id10"/>
+		</transition>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id14"/>
+			<label kind="guard" x="-246" y="-255">t==1200</label>
+			<label kind="assignment" x="-289" y="-153">t=0</label>
+		</transition>
+	</template>
+	<template>
+		<name>Motion sensors</name>
+		<location id="id16" x="-382" y="-153">
+			<name x="-392" y="-187">I</name>
+			<label kind="comments" x="-578" y="-179">Motion sensors
+(on windows)</label>
+		</location>
+		<location id="id17" x="-136" y="-34">
+			<name x="-146" y="-68">IV</name>
+			<label kind="comments" x="-110" y="-68">Security</label>
+		</location>
+		<location id="id18" x="-391" y="-42">
+			<name x="-401" y="-76">II</name>
+			<label kind="comments" x="-485" y="-50">Camera</label>
+		</location>
+		<location id="id19" x="-374" y="102">
+			<name x="-384" y="68">III</name>
+			<label kind="comments" x="-467" y="93">Photocells</label>
+		</location>
+		<location id="id20" x="34" y="-34">
+			<name x="24" y="-68">V</name>
+		</location>
+		<init ref="id16"/>
+		<transition>
+			<source ref="id17"/>
+			<target ref="id20"/>
+			<label kind="synchronisation" x="-93" y="-34">eventually:
+alarming police</label>
+		</transition>
+		<transition>
+			<source ref="id19"/>
+			<target ref="id17"/>
+			<label kind="synchronisation" x="-340" y="85">c!</label>
+			<label kind="comments" x="-246" y="42">motion</label>
+		</transition>
+		<transition>
+			<source ref="id18"/>
+			<target ref="id17"/>
+			<label kind="synchronisation" x="-365" y="-59">b!</label>
+			<label kind="comments" x="-314" y="-68">motion</label>
+		</transition>
+		<transition>
+			<source ref="id16"/>
+			<target ref="id17"/>
+			<label kind="synchronisation" x="-340" y="-170">a!</label>
+			<label kind="comments" x="-297" y="-153">vibration, breakage</label>
+		</transition>
+	</template>
+	<template>
+		<name>Engineering</name>
+		<location id="id21" x="-1122" y="-544">
+			<name x="-1132" y="-578">I</name>
+			<label kind="comments" x="-1249" y="-586">Wintertime
+Heating - Off</label>
+		</location>
+		<location id="id22" x="-1122" y="-365">
+			<name x="-1132" y="-399">II</name>
+			<label kind="comments" x="-1241" y="-382">Summertime
+Heating - Off</label>
+		</location>
+		<location id="id23" x="-858" y="-552">
+			<name x="-868" y="-586">III</name>
+			<label kind="comments" x="-824" y="-561">Heating - On</label>
+		</location>
+		<location id="id24" x="-1113" y="-110">
+			<name x="-1123" y="-144">1 N</name>
+			<label kind="invariant" x="-1164" y="-127">p&lt;2.5</label>
+			<label kind="comments" x="-1164" y="-169">Furnace - On</label>
+		</location>
+		<location id="id25" x="-884" y="-144">
+			<name x="-894" y="-178">2 N</name>
+			<label kind="comments" x="-850" y="-195">Switches off furnace,
+alarms by operator</label>
+		</location>
+		<location id="id26" x="-892" y="-59">
+			<name x="-902" y="-93">3 N</name>
+			<label kind="invariant" x="-902" y="-42">p&lt;2</label>
+		</location>
+		<location id="id27" x="-612" y="-110">
+			<name x="-622" y="-144">1 Y</name>
+		</location>
+		<location id="id28" x="-340" y="-136">
+			<name x="-350" y="-170">2 Y</name>
+		</location>
+		<location id="id29" x="-340" y="-51">
+			<name x="-323" y="-68">3 Y</name>
+			<label kind="invariant" x="-340" y="-34">p&lt;2</label>
+		</location>
+		<location id="id30" x="-807" y="-59">
+			<name x="-817" y="-93">4 N</name>
+		</location>
+		<location id="id31" x="-765" y="-450">
+			<name x="-775" y="-484">IV</name>
+			<label kind="comments" x="-739" y="-467">Heating - On</label>
+		</location>
+		<location id="id32" x="-663" y="-365">
+			<name x="-673" y="-399">V</name>
+			<label kind="comments" x="-637" y="-382">Ventillation - On</label>
+		</location>
+		<location id="id33" x="-714" y="-272">
+			<name x="-724" y="-306">VI</name>
+			<label kind="comments" x="-688" y="-289">Air conditioning - On</label>
+		</location>
+		<branchpoint id="id34" x="-612" y="-110">
+		</branchpoint>
+		<branchpoint id="id35" x="-612" y="-110">
+		</branchpoint>
+		<branchpoint id="id36" x="-1113" y="-110">
+		</branchpoint>
+		<branchpoint id="id37" x="-1113" y="-110">
+		</branchpoint>
+		<branchpoint id="id38" x="-1113" y="-110">
+		</branchpoint>
+		<branchpoint id="id39" x="-1122" y="-365">
+		</branchpoint>
+		<init ref="id21"/>
+		<transition>
+			<source ref="id32"/>
+			<target ref="id22"/>
+			<label kind="guard" x="-875" y="-357">temperature&lt;=25°C  &amp;&amp; rel.humidity&lt;50%</label>
+		</transition>
+		<transition>
+			<source ref="id31"/>
+			<target ref="id22"/>
+			<label kind="guard" x="-875" y="-433">temperature&gt;20°C</label>
+		</transition>
+		<transition>
+			<source ref="id33"/>
+			<target ref="id22"/>
+			<label kind="guard" x="-960" y="-272">temperature&lt;25°C</label>
+			<nail x="-960" y="-272"/>
+		</transition>
+		<transition>
+			<source ref="id22"/>
+			<target ref="id33"/>
+			<label kind="guard" x="-960" y="-314">temperature&gt;30°C</label>
+			<nail x="-935" y="-340"/>
+		</transition>
+		<transition>
+			<source ref="id22"/>
+			<target ref="id32"/>
+			<label kind="guard" x="-833" y="-408">temperature&lt;=25°C  || rel.humidity&gt;=60%</label>
+			<nail x="-858" y="-391"/>
+		</transition>
+		<transition>
+			<source ref="id22"/>
+			<target ref="id31"/>
+			<label kind="guard" x="-994" y="-459">temperature&lt;=16°C</label>
+			<nail x="-909" y="-433"/>
+		</transition>
+		<transition>
+			<source ref="id23"/>
+			<target ref="id21"/>
+			<label kind="guard" x="-1113" y="-510">temperature  &gt;22°C  || rel.humidity &lt; 30%</label>
+			<nail x="-994" y="-518"/>
+		</transition>
+		<transition>
+			<source ref="id21"/>
+			<target ref="id23"/>
+			<label kind="guard" x="-1062" y="-603">temperature&lt;=18°C</label>
+			<nail x="-1003" y="-578"/>
+		</transition>
+		<transition>
+			<source ref="id27"/>
+			<target ref="id29"/>
+			<label kind="comments" x="-527" y="-102">Water pressure reduces</label>
+		</transition>
+		<transition>
+			<source ref="id27"/>
+			<target ref="id28"/>
+		</transition>
+		<transition>
+			<source ref="id29"/>
+			<target ref="id28"/>
+			<label kind="assignment" x="-314" y="-153">p=2</label>
+			<label kind="comments" x="-280" y="-85">Furnace switches off,
+closes inflow water tap,
+alarms by the operator</label>
+		</transition>
+		<transition color="#0000ff">
+			<source ref="id26"/>
+			<target ref="id30"/>
+			<label kind="comments" x="-790" y="-68">Opens tap till 2 Bars,
+then closes</label>
+		</transition>
+		<transition>
+			<source ref="id22"/>
+			<target ref="id22"/>
+			<label kind="guard" x="-1198" y="-433">temperature &gt; 16°C</label>
+			<nail x="-1105" y="-416"/>
+			<nail x="-1071" y="-399"/>
+		</transition>
+		<transition color="#ff00ff">
+			<source ref="id24"/>
+			<target ref="id29"/>
+			<label kind="guard" x="-834" y="22">p&lt;2</label>
+			<label kind="synchronisation" x="-783" y="22">c!</label>
+			<label kind="comments" x="-1045" y="42">Leakage/breakage:
+indicated by water measurer (rapidly increasing water consumption of the system)</label>
+			<nail x="-1063" y="13"/>
+			<nail x="-511" y="22"/>
+		</transition>
+		<transition>
+			<source ref="id24"/>
+			<target ref="id26"/>
+			<label kind="comments" x="-1011" y="-110">Water pressure reduces</label>
+		</transition>
+		<transition>
+			<source ref="id24"/>
+			<target ref="id25"/>
+			<label kind="assignment" x="-1003" y="-161">p&gt;2.5</label>
+			<label kind="comments" x="-1368" y="-229">p:= water pressure
+c:= water consumption</label>
+		</transition>
+	</template>
+	<template>
+		<name>Power supply</name>
+		<location id="id40" x="-450" y="-136">
+			<name x="-460" y="-170">I</name>
+		</location>
+		<location id="id41" x="-76" y="-221">
+			<name x="-86" y="-255">II</name>
+			<label kind="comments" x="-42" y="-263">"reduced mode", eg.:
+- AC off
+- external lights minimized</label>
+		</location>
+		<location id="id42" x="-68" y="-68">
+			<name x="-78" y="-102">III</name>
+			<label kind="comments" x="-42" y="-76">Uninterruptible power supply - On</label>
+		</location>
+		<location id="id43" x="-263" y="110">
+		</location>
+		<init ref="id40"/>
+		<transition>
+			<source ref="id43"/>
+			<target ref="id42"/>
+			<label kind="assignment" x="-187" y="34">concerned circuit off
+till being examined</label>
+		</transition>
+		<transition>
+			<source ref="id40"/>
+			<target ref="id43"/>
+			<label kind="synchronisation" x="-357" y="17">d!</label>
+			<label kind="comments" x="-782" y="-255">d:= short-circuit detected</label>
+		</transition>
+		<transition>
+			<source ref="id40"/>
+			<target ref="id42"/>
+			<label kind="synchronisation" x="-315" y="-24">c!</label>
+			<label kind="comments" x="-782" y="-289">c:= overvoltage detected</label>
+			<nail x="-341" y="-33"/>
+			<nail x="-281" y="-24"/>
+		</transition>
+		<transition>
+			<source ref="id40"/>
+			<target ref="id42"/>
+			<label kind="synchronisation" x="-306" y="-85">b!</label>
+			<label kind="comments" x="-782" y="-323">b:= power outages</label>
+			<nail x="-297" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id42"/>
+			<target ref="id41"/>
+		</transition>
+		<transition>
+			<source ref="id40"/>
+			<target ref="id42"/>
+			<label kind="synchronisation" x="-272" y="-127">a!</label>
+			<label kind="comments" x="-782" y="-357">a:= lack of supply</label>
+		</transition>
+		<transition>
+			<source ref="id40"/>
+			<target ref="id41"/>
+			<label kind="guard" x="-323" y="-212">W&gt;100,000</label>
+			<label kind="comments" x="-442" y="-238">Annual consumption reaches a treshold value</label>
+		</transition>
+	</template>
+	<template>
+		<name>Water detector</name>
+		<location id="id44" x="-739" y="-280">
+			<name x="-749" y="-314">I.</name>
+			<label kind="comments" x="-824" y="-340">Counter of supply water</label>
+		</location>
+		<location id="id45" x="-765" y="-119">
+			<name x="-775" y="-153">III</name>
+			<label kind="comments" x="-850" y="-170">Furnace - On</label>
+		</location>
+		<location id="id46" x="-714" y="68">
+			<name x="-724" y="34">V</name>
+			<label kind="comments" x="-969" y="51">Water-detectors in critical locations</label>
+		</location>
+		<location id="id47" x="-297" y="-246">
+			<name x="-307" y="-280">IV</name>
+			<label kind="comments" x="-1164" y="-408">Detection of pipeline burst or leakage</label>
+		</location>
+		<location id="id48" x="-399" y="-144">
+			<name x="-409" y="-178">V</name>
+			<urgent/>
+		</location>
+		<location id="id49" x="-162" y="-144">
+			<label kind="comments" x="-144" y="-153">Furnace - Off</label>
+		</location>
+		<branchpoint id="id50" x="-212" y="-221">
+		</branchpoint>
+		<branchpoint id="id51" x="-212" y="-289">
+		</branchpoint>
+		<init ref="id44"/>
+		<transition color="#00ff00">
+			<source ref="id48"/>
+			<target ref="id49"/>
+			<label kind="assignment" x="-381" y="-148">turning off the furnace</label>
+		</transition>
+		<transition>
+			<source ref="id48"/>
+			<target ref="id50"/>
+		</transition>
+		<transition>
+			<source ref="id48"/>
+			<target ref="id47"/>
+		</transition>
+		<transition>
+			<source ref="id46"/>
+			<target ref="id48"/>
+			<label kind="synchronisation" x="-671" y="-8">alarm (WIFI)</label>
+			<nail x="-450" y="-59"/>
+		</transition>
+		<transition>
+			<source ref="id45"/>
+			<target ref="id48"/>
+			<label kind="synchronisation" x="-756" y="-85">sudden increase of warm water consumption</label>
+			<nail x="-595" y="-85"/>
+		</transition>
+		<transition>
+			<source ref="id45"/>
+			<target ref="id48"/>
+			<label kind="synchronisation" x="-731" y="-170">significant drop of pressure in the heating circle</label>
+			<nail x="-595" y="-144"/>
+		</transition>
+		<transition>
+			<source ref="id47"/>
+			<target ref="id50"/>
+			<label kind="assignment" x="-204" y="-229">alarming the operator</label>
+		</transition>
+		<transition>
+			<source ref="id47"/>
+			<target ref="id51"/>
+			<label kind="assignment" x="-255" y="-314">turning off the tap</label>
+		</transition>
+		<transition>
+			<source ref="id44"/>
+			<target ref="id47"/>
+			<label kind="synchronisation" x="-688" y="-238">sudden increase in consumption
+(counter running above a given pace)</label>
+			<nail x="-544" y="-246"/>
+		</transition>
+		<transition>
+			<source ref="id44"/>
+			<target ref="id47"/>
+			<label kind="synchronisation" x="-595" y="-382">consumption detected
+during the night or
+in vacation perios</label>
+			<nail x="-535" y="-306"/>
+		</transition>
+	</template>
+	<template>
+		<name>Watering system (indoor plants)</name>
+		<location id="id52" x="-714" y="-272">
+		</location>
+		<location id="id53" x="-433" y="-263">
+			<label kind="invariant" x="-442" y="-246">t=0</label>
+			<label kind="comments" x="-518" y="-348">watering system off</label>
+		</location>
+		<location id="id54" x="-425" y="-127">
+			<label kind="comments" x="-442" y="-102">watering system off</label>
+		</location>
+		<location id="id55" x="-204" y="-263">
+			<label kind="invariant" x="-204" y="-306">t==960</label>
+			<label kind="comments" x="-153" y="-289">watering system on</label>
+		</location>
+		<location id="id56" x="-204" y="-187">
+			<label kind="invariant" x="-214" y="-170">t==990</label>
+			<label kind="comments" x="-153" y="-204">watering system off</label>
+		</location>
+		<init ref="id52"/>
+		<transition>
+			<source ref="id55"/>
+			<target ref="id56"/>
+			<label kind="guard" x="-187" y="-246">t&lt;990</label>
+		</transition>
+		<transition>
+			<source ref="id56"/>
+			<target ref="id53"/>
+			<label kind="guard" x="-340" y="-221">t&lt;1440</label>
+			<nail x="-221" y="-195"/>
+		</transition>
+		<transition>
+			<source ref="id53"/>
+			<target ref="id55"/>
+			<label kind="guard" x="-415" y="-314">t&lt;=960</label>
+			<label kind="comments" x="-918" y="-527">t:= time of the day (min.)</label>
+			<nail x="-314" y="-297"/>
+		</transition>
+		<transition>
+			<source ref="id52"/>
+			<target ref="id54"/>
+			<label kind="guard" x="-663" y="-204">season!=summer</label>
+		</transition>
+		<transition>
+			<source ref="id52"/>
+			<target ref="id53"/>
+			<label kind="guard" x="-696" y="-301">season==summer</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Process = MyAutomata();
+// List one or more processes to be composed into a system.
+system Process;
+    </system>
+	<queries>
+		<query>
+			<formula>
+</formula>
+			<comment></comment>
+		</query>
+	</queries>
+</nta>
